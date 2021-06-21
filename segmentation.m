@@ -11,9 +11,13 @@ if(sum_all/w>0.5)
     projection = ones(1,w)-projection;
 end
 
-% imshow(img_licence_binary);title("img_licence_binary");
+% imshow(img_licence_binary);
 
 target_area = find(projection>0.11);
+% bar(projection);
+% hold on
+% plot(1:w,0.11*ones(1,w),'r','linewidth',2);
+% legend('灰度投影','分割阈值')
 
 index = target_area(1);
 index_list = [];
@@ -40,7 +44,7 @@ end
 %         plot(index*ones(1,h),1:h,'b')
 %     end
 % end
-% hold off
+hold off
 
 num = length(index_list)/2;
 

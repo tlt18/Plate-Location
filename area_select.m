@@ -2,13 +2,22 @@
 function I = area_select(img_morphology,img,color)
 stats = regionprops(img_morphology,'BoundingBox','Centroid');
 centroids = cat(1,stats.Centroid);
+temp = cat(1,stats.BoundingBox);
+
 L = length(stats);
+
 % hold on
 % for i = 1:L
-% text(centroids(i,1),centroids(i,2),num2str(i))
-% plot(centroids(i,1),centroids(i,2),'r*')
+% text(centroids(i,1),centroids(i,2),num2str(i),'Color','red','FontSize',14)
+% x1 = temp(i,1);
+% x2 = temp(i,1)+temp(i,3);
+% y1 = temp(i,2);
+% y2 = temp(i,2)+temp(i,4);
+% % plot([x1,x2,x2,x1],[y1,y1,y2,y2],'linewidth',1,'r');
+% plot([x1,x2,x2,x1,x1],[y1,y1,y2,y2,y1],'r','linewidth',2)
 % end
 % hold off
+
 fprintf("车牌候选区域的数量:%d \n", L);
 
 index_area = area_judge(stats)
