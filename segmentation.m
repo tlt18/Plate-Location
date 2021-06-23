@@ -1,11 +1,15 @@
 % 此函数的简短摘要。
 % 此函数的详细说明。
 function [img_final,result_list,number_list,img_reshaped_list] = segmentation(img_area_new)
+% 如果二值化之前进行直方图均衡化
+img_area_new = histeq(img_area_new);
 img_licence_gray = preprocess(img_area_new);
 img_licence_binary = imbinarize(img_licence_gray);
 [h,w] = size(img_licence_binary);
 projection = sum(img_licence_binary, 1)/h;
 sum_all = sum(projection);
+
+% 灰度反转
 if(sum_all/w>0.5)
     img_licence_binary = ones(h,w)-img_licence_binary;
     projection = ones(1,w)-projection;
@@ -13,7 +17,9 @@ end
 
 % imshow(img_licence_binary);
 
+% 判断阈值
 target_area = find(projection>0.11);
+
 % bar(projection);
 % hold on
 % plot(1:w,0.11*ones(1,w),'r','linewidth',2);
@@ -75,13 +81,16 @@ end
 
 result_list = zeros(1,num);
 img_reshaped_list = [];
+
+img_final = 0.7*ones(h,5);
+
 for i = 1:num
 %     subplot(num,1,i);
     left = index_list(2*i-1);
     right = index_list(2*i);
     img_sub = img_licence_binary(:,left:right,:);
 %     imshow(img_sub);
-    img_final = [img_final,img_sub,ones(h,30)];
+    img_final = [img_final,img_sub,0.7*ones(h,5)];
     [result,img_reshaped] = recognition(img_sub,img_ref0,img_ref1,img_ref2,img_ref3,img_ref4,img_ref5,img_ref6,img_ref7,img_ref8,img_ref9);
     result_list(i) = result;
     eval(['img_reshaped = [img_reshaped;img_ref',num2str(result),'];']);

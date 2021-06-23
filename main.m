@@ -57,7 +57,6 @@ img_morphology = judge(img_morphology,img);
 img_area = area_select(img_morphology,img,color);
 % imshow(img_area);
 
-
 img_correction = correction(img_area);
 % imshow(img_correction);
 % figure()
@@ -74,5 +73,5 @@ imwrite(img_area_new,['./result/定位',num2str(img_num),'.png']);
 imwrite(img_final,['./result/分割',num2str(img_num),'.png']);
 imwrite(img_reshaped_list,['./result/识别',num2str(img_num),'.png']);
 
-result_list
+result_list;
 end
