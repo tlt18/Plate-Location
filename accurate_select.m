@@ -42,6 +42,14 @@ else
     index_left = 1;
     index_right = w;
 end
+index_up = max(index_up - 3,1);
+
+index_down = min(index_down + 3,h);
+
+index_left = max(index_left-3,1);
+
+index_right = min(index_right+3,w);
+
     img_area_new = img_area(index_up:index_down,index_left:index_right,:);
 end
 

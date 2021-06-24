@@ -18,7 +18,7 @@ end
 % imshow(img_licence_binary);
 
 % 判断阈值
-% 阈值判断前先减去最小值
+% 阈值判断前先减去最小值。
 projection = projection - min(projection);
 th = 0.11;
 target_area = find(projection>th);
@@ -101,7 +101,7 @@ img_reflist = [img_ref0,img_ref1,img_ref2,img_ref3,img_ref4,img_ref5,img_ref6,im
 
 result_list = zeros(1,num);
 img_reshaped_list = [];
-
+img_ref_list = [];
 img_final = 0.7*ones(h,5);
 for i = 1:num
 %     subplot(num,1,i);
@@ -112,17 +112,9 @@ for i = 1:num
     img_final = [img_final,img_sub,0.7*ones(h,5)];
     [result,img_reshaped] = recognition(img_sub,img_reflist);
     result_list(i) = result;
-    eval(['img_ref = img_ref',num2str(result),';']);
-    [h1,w1] = size(img_ref);
-    [h2,w2] = size(img_reshaped);
-    if w1>w2
-        img_reshaped = [img_reshaped,zeros(h1,w1-w2)];
-    else
-        img_ref = [img_ref,zeros(h1,w2-w1)];
-    end
-    img_add = [img_reshaped;img_ref];
-    img_reshaped_list = [img_reshaped_list,img_add];
-
+    
+    eval(['img_reshaped = [img_reshaped;img_ref',num2str(result),'];']);
+    img_reshaped_list = [img_reshaped_list,img_reshaped];
 end
 img_reshaped_list = img_reshaped_list*255;
 end
